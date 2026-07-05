@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Reply Helper · Makeovers by Jyotika</title>
+<style>
+  :root{
+    --bg:#0f0d0b;
+    --bg2:#14110d;
+    --gold:#c9a84c;
+    --gold-bright:#e8c96a;
+    --cream:#f1e7d4;
+    --dim:#b7a888;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:radial-gradient(circle at 50% 0%, var(--bg2), var(--bg) 70%);
+    font-family:-apple-system, 'Jost', sans-serif;
+    color:var(--cream);
+    min-height:100vh;
+    padding:28px 20px 60px;
+    display:flex;
+    justify-content:center;
+  }
+  .wrap{ width:100%; max-width:460px; }
+  .brand{ text-align:center; margin-bottom:22px; }
+  .brand .name{
+    font-family:'Cormorant Garamond', serif;
+    font-size:22px;
+    letter-spacing:1px;
+    color:var(--gold-bright);
+  }
+  .brand .sub{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--dim);
+    margin-top:4px;
+  }
+  .card{
+    border:1px solid rgba(201,168,76,0.35);
+    border-radius:16px;
+    padding:26px 22px;
+    background:rgba(255,255,255,0.02);
+    box-shadow:0 0 30px rgba(0,0,0,0.4);
+  }
+  label{
+    display:block;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:6px;
+    margin-top:16px;
+  }
+  label:first-child{ margin-top:0; }
+  input, textarea, select{
+    width:100%;
+    padding:12px 14px;
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(201,168,76,0.4);
+    border-radius:8px;
+    color:var(--cream);
+    font-size:15px;
+    font-family:inherit;
+  }
+  select{ appearance:none; }
+  select option{ background:#14110d; color:var(--cream); }
+  input:focus, textarea:focus, select:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  textarea{
+    resize:vertical;
+    min-height:130px;
+    line-height:1.5;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--dim);
+    margin-top:6px;
+    line-height:1.4;
+  }
+  .btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    margin-top:24px;
+    padding:15px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-bright));
+    color:#14110d;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.3px;
+    border:none;
+    cursor:pointer;
+  }
+  .btn.disabled{
+    background:rgba(201,168,76,0.25);
+    color:rgba(241,231,212,0.4);
+    pointer-events:none;
+  }
+  .footer-note{
+    text-align:center;
+    font-size:11px;
+    color:var(--dim);
+    margin-top:22px;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="name">Makeovers by Jyotika</div>
+    <div class="sub">Enquiry Email Reply Helper</div>
+  </div>
+
+  <div class="card">
+    <label for="name">Client Name</label>
+    <input type="text" id="name" placeholder="From the enquiry email, e.g. Priya">
+
+    <label for="email">Client Email</label>
+    <input type="email" id="email" placeholder="From the enquiry email">
+
+    <label for="service">Service They Enquired About</label>
+    <select id="service">
+      <option value="your enquiry">General Enquiry</option>
+      <option value="Bridal Makeup">Bridal Makeup</option>
+      <option value="Engagement Makeup">Engagement Makeup</option>
+      <option value="Destination Makeup">Destination Makeup</option>
+      <option value="Party Makeup">Party Makeup</option>
+      <option value="Celebrity Makeup">Celebrity Makeup</option>
+      <option value="a Personalised Experience">Personalised Experience</option>
+      <option value="the Self-Makeup Masterclass">Self-Makeup Masterclass</option>
+      <option value="the Professional Makeup Masterclass">Professional Makeup Masterclass</option>
+      <option value="Fitness Coaching">Fitness Coaching</option>
+      <option value="Life Coaching">Life Coaching</option>
+      <option value="a Collaboration">Makeup Influencer Collaboration</option>
+      <option value="a Group Booking">Group Booking</option>
+    </select>
+
+    <label for="message">Email Message</label>
+    <textarea id="message">Hi {name},
+
+Thank you so much for reaching out about {service} — it truly means a lot that you're considering Makeovers by Jyotika for this.
+
+I'd love to learn a little more about your vision, your date, and what you have in mind, so I can guide you through the next steps and check my availability for you.
+
+For faster back-and-forth, feel free to also message me directly on WhatsApp at +91 88600 85528 — happy to chat whenever suits you best.
+
+Looking forward to connecting further!
+
+Warmly,
+Jyotika
+Makeovers by Jyotika
+www.makeoversbyjyotika.com</textarea>
+    <div class="hint">{name} and {service} are automatically filled in from above. Feel free to personalize before sending.</div>
+
+    <a href="#" class="btn disabled" id="sendBtn">Open Email to Reply</a>
+  </div>
+
+  <div class="footer-note">
+    Fill this in using the details from the enquiry notification email you received, then tap the button — it opens your Mail app with everything ready to send.
+  </div>
+
+</div>
+
+<script>
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const serviceInput = document.getElementById('service');
+  const messageInput = document.getElementById('message');
+  const sendBtn = document.getElementById('sendBtn');
+
+  function update(){
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const service = serviceInput.value;
+    const msgTemplate = messageInput.value;
+
+    if(!email || !email.includes('@')){
+      sendBtn.classList.add('disabled');
+      sendBtn.href = '#';
+      return;
+    }
+
+    const finalMessage = msgTemplate
+      .replace(/\{name\}/g, name || 'there')
+      .replace(/\{service\}/g, service);
+
+    const subject = 'Re: Your Enquiry with Makeovers by Jyotika';
+    const url = 'mailto:' + encodeURIComponent(email) +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(finalMessage);
+
+    sendBtn.href = url;
+    sendBtn.classList.remove('disabled');
+  }
+
+  [nameInput, emailInput, serviceInput, messageInput].forEach(el => el.addEventListener('input', update));
+  serviceInput.addEventListener('change', update);
+</script>
+
+</body>
+</html>

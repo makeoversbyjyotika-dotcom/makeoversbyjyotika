@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reply Helper · Makeovers by Jyotika</title>
+<style>
+  :root{
+    --bg:#0f0d0b;
+    --bg2:#14110d;
+    --gold:#c9a84c;
+    --gold-bright:#e8c96a;
+    --cream:#f1e7d4;
+    --dim:#b7a888;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:radial-gradient(circle at 50% 0%, var(--bg2), var(--bg) 70%);
+    font-family:-apple-system, 'Jost', sans-serif;
+    color:var(--cream);
+    min-height:100vh;
+    padding:28px 20px 60px;
+    display:flex;
+    justify-content:center;
+  }
+  .wrap{ width:100%; max-width:440px; }
+  .brand{
+    text-align:center;
+    margin-bottom:22px;
+  }
+  .brand .name{
+    font-family:'Cormorant Garamond', serif;
+    font-size:22px;
+    letter-spacing:1px;
+    color:var(--gold-bright);
+  }
+  .brand .sub{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--dim);
+    margin-top:4px;
+  }
+  .card{
+    border:1px solid rgba(201,168,76,0.35);
+    border-radius:16px;
+    padding:26px 22px;
+    background:rgba(255,255,255,0.02);
+    box-shadow:0 0 30px rgba(0,0,0,0.4);
+  }
+  label{
+    display:block;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:6px;
+    margin-top:18px;
+  }
+  label:first-child{ margin-top:0; }
+  input, textarea{
+    width:100%;
+    padding:12px 14px;
+    background:rgba(0,0,0,0.25);
+    border:1px solid rgba(201,168,76,0.4);
+    border-radius:8px;
+    color:var(--cream);
+    font-size:15px;
+    font-family:inherit;
+  }
+  input:focus, textarea:focus{
+    outline:none;
+    border-color:var(--gold-bright);
+  }
+  textarea{
+    resize:vertical;
+    min-height:110px;
+    line-height:1.5;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--dim);
+    margin-top:6px;
+    line-height:1.4;
+  }
+  .btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    margin-top:24px;
+    padding:15px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-bright));
+    color:#14110d;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.3px;
+    border:none;
+    cursor:pointer;
+  }
+  .btn:active{ opacity:0.85; }
+  .btn.disabled{
+    background:rgba(201,168,76,0.25);
+    color:rgba(241,231,212,0.4);
+    pointer-events:none;
+  }
+  .footer-note{
+    text-align:center;
+    font-size:11px;
+    color:var(--dim);
+    margin-top:22px;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="name">Makeovers by Jyotika</div>
+    <div class="sub">Lead Reply Helper</div>
+  </div>
+
+  <div class="card">
+    <label for="name">Client Name</label>
+    <input type="text" id="name" placeholder="e.g. Priya">
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="10-digit number, e.g. 9876543210">
+    <div class="hint">Just the 10 digits — country code is added automatically.</div>
+
+    <label for="message">Message</label>
+    <textarea id="message">Hi {name}, thank you so much for choosing Makeovers by Jyotika! 💛 It was lovely having you. Would love to stay connected — follow me here: https://www.instagram.com/makeoversbyjyotika</textarea>
+    <div class="hint">{name} is automatically replaced with the name above. Feel free to edit the message before sending.</div>
+
+    <a href="#" class="btn disabled" id="sendBtn" target="_blank">Open WhatsApp Message</a>
+  </div>
+
+  <div class="footer-note">
+    Tip: send this about an hour after the lead comes in, once their service is done — a personal follow-up lands better than an instant auto-reply.
+  </div>
+
+</div>
+
+<script>
+  const nameInput = document.getElementById('name');
+  const phoneInput = document.getElementById('phone');
+  const messageInput = document.getElementById('message');
+  const sendBtn = document.getElementById('sendBtn');
+
+  function update(){
+    const name = nameInput.value.trim();
+    const phoneRaw = phoneInput.value.replace(/\D/g, '');
+    const msgTemplate = messageInput.value;
+
+    if(!phoneRaw || phoneRaw.length < 10){
+      sendBtn.classList.add('disabled');
+      sendBtn.href = '#';
+      return;
+    }
+
+    // India country code, drop leading 0 if present, take last 10 digits
+    const last10 = phoneRaw.slice(-10);
+    const fullNumber = '91' + last10;
+
+    const finalMessage = msgTemplate.replace(/\{name\}/g, name || 'there');
+    const url = 'https://wa.me/' + fullNumber + '?text=' + encodeURIComponent(finalMessage);
+
+    sendBtn.href = url;
+    sendBtn.classList.remove('disabled');
+  }
+
+  [nameInput, phoneInput, messageInput].forEach(el => el.addEventListener('input', update));
+</script>
+
+</body>
+</html>
